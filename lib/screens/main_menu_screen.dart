@@ -1,12 +1,12 @@
-import 'package:banking_app/models/transaction.dart';
-import 'package:banking_app/providers/transactions_provider.dart';
-import 'package:banking_app/widgets/main_menu_action_buttons.dart';
-import 'package:banking_app/widgets/recent_transaction_category_buttons.dart';
-import 'package:banking_app/widgets/recent_transaction_list_tiles.dart';
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+
 import '../models/colors.dart' as custom_colors;
+import '../providers/transactions_provider.dart';
+import '../widgets/main_menu_action_buttons.dart';
+import '../widgets/recent_transaction_category_buttons.dart';
+import '../widgets/recent_transaction_list_tiles.dart';
 
 class MainMenuScreen extends StatelessWidget {
   const MainMenuScreen({Key? key}) : super(key: key);
@@ -94,7 +94,7 @@ class MainMenuScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             fontSize: 32),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       const Icon(
                         Icons.notifications_active,
                         color: Colors.white54,
@@ -169,14 +169,14 @@ class MainMenuScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: custom_colors.lightGrayBackground,
                       borderRadius: const BorderRadius.only(
-                          topLeft: const Radius.circular(24),
-                          topRight: const Radius.circular(24)),
+                          topLeft: Radius.circular(24),
+                          topRight: Radius.circular(24)),
                     ),
                     child: Padding(
                       padding:
                           const EdgeInsets.only(top: 24, left: 24, right: 24),
                       child: SingleChildScrollView(
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -205,8 +205,12 @@ class MainMenuScreen extends StatelessWidget {
                             ),
                             Row(
                               children: [
-                                RecentTransactionCategoryButtons('All',
-                                    Icons.ac_unit, Colors.transparent, true),
+                                RecentTransactionCategoryButtons(
+                                  'All',
+                                  Icons.ac_unit,
+                                  Colors.transparent,
+                                  true,
+                                ),
                                 RecentTransactionCategoryButtons(
                                     'Income',
                                     Icons.add_circle_rounded,
@@ -236,14 +240,18 @@ class MainMenuScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                               child: Container(
                                 width: double.infinity,
-                                padding: EdgeInsets.all(8),
-                                color: Colors.red,
+                                padding: const EdgeInsets.all(8),
+                                color: Colors.white,
                                 height:
                                     Provider.of<TransactionsProvider>(context)
-                                            .recentTransactionList
+                                            .todaysTransaction
                                             .length *
-                                        90,
-                                child: RecentTransactionListTiles(),
+                                        86,
+                                child: Container(
+                                  child: RecentTransactionListTiles(
+                                    isTodayTransaction: true,
+                                  ),
+                                ),
                               ),
                             ),
                             const SizedBox(
@@ -259,11 +267,23 @@ class MainMenuScreen extends StatelessWidget {
                             const SizedBox(
                               height: 12,
                             ),
-                            Container(
-                              height: 100,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20)),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(8),
+                                color: Colors.white,
+                                height:
+                                    Provider.of<TransactionsProvider>(context)
+                                            .yesterdaysTransaction
+                                            .length *
+                                        86,
+                                child: Container(
+                                  child: RecentTransactionListTiles(
+                                    isTodayTransaction: false,
+                                  ),
+                                ),
+                              ),
                             ),
                           ],
                         ),

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import '../models/colors.dart' as custom_colors;
 
+// ignore: must_be_immutable
 class MainMenuActionButtons extends StatelessWidget {
   String title;
   String imageUrl;
 
-  MainMenuActionButtons(this.title, this.imageUrl);
+  MainMenuActionButtons(this.title, this.imageUrl, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +34,16 @@ class MainMenuActionButtons extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 4,
         ),
         Text(
           title,
-          style: TextStyle(
-              fontSize: 16, color: Colors.white54, fontWeight: FontWeight.bold),
+          style: const TextStyle(
+            fontSize: 16,
+            color: Colors.white54,
+            fontWeight: FontWeight.bold,
+          ),
         )
       ],
     );

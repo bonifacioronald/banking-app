@@ -5,14 +5,20 @@ import 'package:provider/provider.dart';
 import '../models/colors.dart' as custom_colors;
 
 class RecentTransactionListTiles extends StatelessWidget {
-  const RecentTransactionListTiles({Key? key}) : super(key: key);
+  bool isTodayTransaction;
+
+  RecentTransactionListTiles({required this.isTodayTransaction});
 
   @override
   Widget build(BuildContext context) {
-    List<Transaction> transactionsList =
-        Provider.of<TransactionsProvider>(context, listen: false)
-            .recentTransactionList;
+    List<Transaction> transactionsList = isTodayTransaction
+        ? Provider.of<TransactionsProvider>(context, listen: false)
+            .todaysTransaction
+        : Provider.of<TransactionsProvider>(context, listen: false)
+            .yesterdaysTransaction;
+
     return ListView.builder(
+      padding: EdgeInsets.zero,
       physics: NeverScrollableScrollPhysics(),
       itemCount: transactionsList.length,
       itemBuilder: (_, index) {
@@ -70,7 +76,7 @@ class RecentTransactionListTiles extends StatelessWidget {
                         transactionsList[index].amount,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                            fontSize: 16,
                             color: transactionsList[index].isExpense
                                 ? custom_colors.primary
                                 : custom_colors.greenAccent),
