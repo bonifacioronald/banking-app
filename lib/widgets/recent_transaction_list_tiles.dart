@@ -1,13 +1,16 @@
-import 'package:banking_app/models/transaction.dart';
-import 'package:banking_app/providers/transactions_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/colors.dart' as custom_colors;
 
+import '../models/transaction.dart';
+import '../providers/transactions_provider.dart';
+
+
+// ignore: must_be_immutable
 class RecentTransactionListTiles extends StatelessWidget {
   bool isTodayTransaction;
 
-  RecentTransactionListTiles({required this.isTodayTransaction});
+  RecentTransactionListTiles({Key? key, required this.isTodayTransaction}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +22,13 @@ class RecentTransactionListTiles extends StatelessWidget {
 
     return ListView.builder(
       padding: EdgeInsets.zero,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: transactionsList.length,
       itemBuilder: (_, index) {
         return Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               height: 70,
               color: Colors.white,
               child: Row(
@@ -44,7 +47,7 @@ class RecentTransactionListTiles extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 16,
                   ),
                   Column(
@@ -60,14 +63,14 @@ class RecentTransactionListTiles extends StatelessWidget {
                       ),
                       Text(
                         transactionsList[index].details,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black38,
                           fontSize: 14,
                         ),
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -83,7 +86,7 @@ class RecentTransactionListTiles extends StatelessWidget {
                       ),
                       Text(
                         transactionsList[index].date,
-                        style: TextStyle(color: Colors.black38, fontSize: 14),
+                        style: const TextStyle(color: Colors.black38, fontSize: 14),
                       )
                     ],
                   ),

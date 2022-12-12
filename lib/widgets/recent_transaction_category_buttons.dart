@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/colors.dart' as custom_colors;
 
+// ignore: must_be_immutable
 class RecentTransactionCategoryButtons extends StatelessWidget {
   String text;
   IconData icon;
@@ -8,7 +9,7 @@ class RecentTransactionCategoryButtons extends StatelessWidget {
   bool isSelected;
 
   RecentTransactionCategoryButtons(
-      this.text, this.icon, this.iconColor, this.isSelected);
+      this.text, this.icon, this.iconColor, this.isSelected, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +68,7 @@ class RecentTransactionCategoryButtons extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 8,
         ),
       ],
